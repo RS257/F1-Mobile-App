@@ -1,3 +1,43 @@
 <resources>
     <string name="app_name">F1</string>
+
+    <string-array name="team_array">
+        <item>Alfa Romeo</item>
+        <item>Alpine</item>
+        <item>Alpha Tauri</item>
+        <item>Aston Martin</item>
+        <item>Ferrari</item>
+        <item>Haas</item>
+        <item>Mercedes</item>
+        <item>McLaren</item>
+        <item>Red Bull</item>
+        <item>Williams</item>
+    </string-array>
+
+    <string-array name="driver_array">
+        <item>Alexander Albon</item>
+        <item>Carlos Sainz Jr.</item>
+        <item>Charles Leclerc</item>
+        <item>Daniel Ricciardo</item>
+        <item>Esteban Ocon</item>
+        <item>Fernando Alonso</item>
+        <item>George Russell</item>
+        <item>Kevin Magnussen</item>
+        <item>Lance Stroll</item>
+        <item>Lando Norris</item>
+        <item>Lewis Hamilton</item>
+        <item>Max Verstappen</item>
+        <item>Mick Schumacher</item>
+        <item>Nicholas Latifi</item>
+        <item>Nico Hülkenberg</item>
+        <item>Pierre Gasly</item>
+        <item>Sebastian Vettel</item>
+        <item>Sergio Pérez</item>
+        <item>Valtteri Bottas</item>
+        <item>Yuki Tsunoda</item>
+        <item>Zhou Guanyu</item>
+
+    </string-array>
+
+
 </resources>

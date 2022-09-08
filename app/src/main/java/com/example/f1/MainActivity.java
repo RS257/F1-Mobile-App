@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,5 +31,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        FirebaseDatabase.getInstance().getReference().child("Programming Knowledge").child("Android").setValue("abcd");
     }
 }

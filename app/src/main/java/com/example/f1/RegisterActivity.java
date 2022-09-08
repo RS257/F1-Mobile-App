@@ -7,8 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,7 +23,13 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText email;
     private EditText password;
+    private Spinner constructors;
+    private Spinner drivers;
     private Button register;
+
+    private ArrayAdapter<CharSequence> teamAdapter;
+    private ArrayAdapter<CharSequence> driverAdapter;
+
 
     private FirebaseAuth auth;
 
@@ -32,6 +41,19 @@ public class RegisterActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         register = findViewById(R.id.register);
+
+        // Setting the spinners up
+        constructors = findViewById(R.id.teamSelect);
+        drivers = findViewById(R.id.driverSelect);
+
+        teamAdapter = ArrayAdapter.createFromResource(this,R.array.team_array, android.R.layout.simple_spinner_item);
+        teamAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        constructors.setAdapter(teamAdapter);
+
+        driverAdapter = ArrayAdapter.createFromResource(this,R.array.driver_array, android.R.layout.simple_spinner_item);
+        driverAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        drivers.setAdapter(driverAdapter);
+
 
         auth = FirebaseAuth.getInstance();
         register.setOnClickListener(new View.OnClickListener() {

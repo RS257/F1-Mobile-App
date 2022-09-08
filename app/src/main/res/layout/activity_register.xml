@@ -30,6 +30,30 @@
         app:layout_constraintTop_toBottomOf="@+id/email"
         tools:layout_editor_absoluteX="0dp" />
 
+    <Spinner
+        android:id="@+id/teamSelect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="47dp"
+        android:hint="Team Select"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/password"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Spinner
+        android:id="@+id/driverSelect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="47dp"
+        android:hint="Driver Select"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/teamSelect"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:layout_editor_absoluteX="0dp" />
+
     <Button
         android:id="@+id/register"
         android:layout_width="match_parent"
@@ -37,7 +61,7 @@
         android:layout_marginTop="48dp"
         android:padding="10dp"
         android:text="register"
-        app:layout_constraintTop_toBottomOf="@+id/password"
+        app:layout_constraintTop_toBottomOf="@+id/driverSelect"
         tools:layout_editor_absoluteX="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
