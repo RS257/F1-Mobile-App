@@ -10,10 +10,10 @@
         android:id="@+id/register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="275dp"
+        android:layout_marginTop="420dp"
         android:text="Register"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="163dp" />
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/Login"
