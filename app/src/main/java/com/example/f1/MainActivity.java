@@ -32,6 +32,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FirebaseDatabase.getInstance().getReference().child("Programming Knowledge").child("Android").setValue("abcd");
+//        FirebaseDatabase.getInstance().getReference().child("Programming Knowledge").child("Android").setValue("abcd");
     }
 }

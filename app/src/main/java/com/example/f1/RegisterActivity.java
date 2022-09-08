@@ -18,11 +18,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private EditText username;
     private EditText email;
     private EditText password;
+
     private Spinner constructors;
     private Spinner drivers;
     private Button register;
@@ -38,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        username = findViewById(R.id.user);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         register = findViewById(R.id.register);
@@ -59,22 +65,34 @@ public class RegisterActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                String txtUsername = username.getText().toString();
                 String txtEmail = email.getText().toString();
                 String txtPassword = password.getText().toString();
+                String txtTeam = constructors.getSelectedItem().toString();
+                String txtDriver = drivers.getSelectedItem().toString();
 
-                if (TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtPassword)){
+
+                if ( TextUtils.isEmpty(txtUsername) || TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtPassword)){
                     Toast.makeText(RegisterActivity.this, "Empty credentials!", Toast.LENGTH_SHORT).show();
                 } else if (txtPassword.length() < 6){
                     Toast.makeText(RegisterActivity.this, "Password too short!", Toast.LENGTH_SHORT).show();
                 } else {
                     registerUser(txtEmail, txtPassword);
+
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("Username", txtUsername);
+                    map.put("Favorite Team", txtTeam);
+                    map.put("Favorite Driver", txtDriver);
+
+                    FirebaseDatabase.getInstance().getReference().child("Users").push().setValue(map);
                 }
             }
         });
     }
 
     private void registerUser(String email, String password) {
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+        auth.createUserWithEmailAndPassword( email, password).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
