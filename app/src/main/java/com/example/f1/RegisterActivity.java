@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -93,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
                     map.put("Favorite Team", txtTeam);
                     map.put("Favorite Driver", txtDriver);
 
-                    registerUser(map,txtEmail, txtPassword);
+                    registerUser(map,txtUsername, txtEmail, txtPassword);
 //
 //                    FirebaseDatabase.getInstance().getReference().child("Users").push().setValue(map);
                 }
@@ -101,29 +102,31 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void registerUser(HashMap map, String email, String password) {
+    private void registerUser(HashMap map, String usern, String email, String password) {
         auth.createUserWithEmailAndPassword( email, password).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()) {
-                    Toast.makeText(RegisterActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
+                   Toast.makeText(RegisterActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
+                   FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(usern).build();
+
+                    user.updateProfile(profileUpdates);
 
                     //Send Data to FireStore
-
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                     db.collection("Users").document(user.getUid()).set(map);
-
                     startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                     finish();
-
                 } else {
                     Toast.makeText(RegisterActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
 
     }
 }

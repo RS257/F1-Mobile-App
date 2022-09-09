@@ -1,6 +1,7 @@
 package com.example.f1;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,42 +22,55 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    private TextView usern, team, driver;
+
     private Button changeFav;
     private Button logout;
 
-    private ListView listView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
 
+
+        usern = findViewById(R.id.username);
+        team = findViewById(R.id.favoriteTeam);
+        driver = findViewById(R.id.favoriteDriver);
+
         changeFav = findViewById(R.id.changeFavorites);
         logout = findViewById(R.id.logout);
-        listView = findViewById(R.id.list);
+        //listView = findViewById(R.id.list);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user == null){
+        if (user == null) {
             Log.d("User", "No user found");
+        } else {
+            Log.d("User", user.getDisplayName());
         }
+
         DocumentReference ref = FirebaseFirestore.getInstance().collection("Users").document(user.getUid());
-        ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        ref.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot doc = task.getResult();
-                    if (doc.exists()){
-                        Log.d("Document", doc.getData().toString());
-                    } else {
-                        Log.d("Document", "No Data");
-                    }
-                }
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                String temp = "Hello, " + user.getDisplayName();
+                usern.setText(temp);
+
+                temp = "Your Favorite Team is " + value.getString("Favorite Team");
+                team.setText(temp);
+
+                temp = "Your Favorite Driver is " + value.getString("Favorite Driver");
+                driver.setText(temp);
             }
         });
 

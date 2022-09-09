@@ -56,7 +56,6 @@ public class StartActivity extends AppCompatActivity {
             Toast.makeText(StartActivity.this, "Welcome Back " + user.getDisplayName() + "!", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(StartActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
 
-
         }
     }
 }

@@ -7,21 +7,54 @@
     tools:context=".MainActivity">
 
 
-    <ListView
-        android:id="@+id/list"
+<!--    <ListView-->
+<!--        android:id="@+id/list"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        tools:layout_editor_absoluteX="1dp"-->
+<!--        tools:layout_editor_absoluteY="1dp" />-->
+
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@id/favoriteTeam"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="4dp" />
+
+    <TextView
+        android:id="@+id/favoriteTeam"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp" />
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@id/favoriteDriver"
+        app:layout_constraintTop_toBottomOf="@id/username"
+        tools:layout_editor_absoluteX="16dp" />
+
+
+    <TextView
+        android:id="@+id/favoriteDriver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@id/changeFavorites"
+        app:layout_constraintTop_toBottomOf="@id/favoriteTeam"
+        tools:layout_editor_absoluteX="16dp" />
 
     <Button
         android:id="@+id/changeFavorites"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="608dp"
+        android:layout_marginTop="536dp"
         android:text="Change Favorites"
-        app:layout_constraintTop_toBottomOf="@id/list"
+        app:layout_constraintTop_toBottomOf="@id/favoriteDriver"
         tools:layout_editor_absoluteX="0dp" />
 
     <Button
@@ -29,8 +62,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="log out"
-        app:layout_constraintTop_toBottomOf="@id/changeFavorites"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/changeFavorites"
+        app:layout_constraintVertical_bias="0.031"
         tools:layout_editor_absoluteX="0dp" />
 
 

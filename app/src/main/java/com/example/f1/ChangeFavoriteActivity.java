@@ -2,11 +2,13 @@ package com.example.f1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -55,6 +57,10 @@ public class ChangeFavoriteActivity extends AppCompatActivity {
                 DocumentReference ref  = FirebaseFirestore.getInstance().collection("Users").document(user.getUid());
                 ref.update("Favorite Team", txtTeam);
                 ref.update("Favorite Driver", txtDriver);
+
+                Toast.makeText(ChangeFavoriteActivity.this, "Change successful", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ChangeFavoriteActivity.this,MainActivity.class));
+                finish();
             }
         });
     }
