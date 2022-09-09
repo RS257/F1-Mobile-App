@@ -111,11 +111,6 @@ public class RegisterActivity extends AppCompatActivity {
                    Toast.makeText(RegisterActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                            .setDisplayName(usern).build();
-
-                    user.updateProfile(profileUpdates);
-
                     //Send Data to FireStore
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                     db.collection("Users").document(user.getUid()).set(map);
