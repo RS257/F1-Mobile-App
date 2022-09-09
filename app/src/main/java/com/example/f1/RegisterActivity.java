@@ -18,9 +18,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -78,26 +81,41 @@ public class RegisterActivity extends AppCompatActivity {
                 } else if (txtPassword.length() < 6){
                     Toast.makeText(RegisterActivity.this, "Password too short!", Toast.LENGTH_SHORT).show();
                 } else {
-                    registerUser(txtEmail, txtPassword);
 
+
+                    /**
+                     * This section uses the Realtime Database to send Data.
+                     * I am Removing this to switch to FiresStore to help with
+                     *  uploading and retreiving user data
+                     */
                     HashMap<String, Object> map = new HashMap<>();
                     map.put("Username", txtUsername);
                     map.put("Favorite Team", txtTeam);
                     map.put("Favorite Driver", txtDriver);
 
-                    FirebaseDatabase.getInstance().getReference().child("Users").push().setValue(map);
+                    registerUser(map,txtEmail, txtPassword);
+//
+//                    FirebaseDatabase.getInstance().getReference().child("Users").push().setValue(map);
                 }
             }
         });
     }
 
-    private void registerUser(String email, String password) {
+    private void registerUser(HashMap map, String email, String password) {
         auth.createUserWithEmailAndPassword( email, password).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()) {
                     Toast.makeText(RegisterActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
+
+                    //Send Data to FireStore
+
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    db.collection("Users").document(user.getUid()).set(map);
+
                     startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                     finish();
 
