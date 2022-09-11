@@ -54,17 +54,15 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
-            Log.d("User", "No user found");
-        } else {
-            Log.d("User", user.getDisplayName());
-        }
+   	  	Log.d("User", "No user found");
+	  } 
 
         DocumentReference ref = FirebaseFirestore.getInstance().collection("Users").document(user.getUid());
         ref.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-            @Override
+		@Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                String temp = "Hello, " + user.getDisplayName();
-                usern.setText(temp);
+                String temp = "Hello, " + value.getString("Username");
+		    usern.setText(temp);
 
                 temp = "Your Favorite Team is " + value.getString("Favorite Team");
                 team.setText(temp);
